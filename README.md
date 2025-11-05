@@ -10,4 +10,4 @@ Member - Johann Tellez - My favorite quote is “Arise now, ye Tarnished.
 Ye dead, who yet live.
 The call of long-lost grace speaks to us all.” from FromSoftware, Inc, Elden Ring(2022)
 
-Member - Ailen Rocio Mansilla - Favorite quote "Time is spelled L-O-V-E"
+Member - Ailen Rocio Mansilla - Favorite quote "Love is spelled T-I-M-E"

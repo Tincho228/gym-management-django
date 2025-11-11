@@ -11,3 +11,109 @@ Ye dead, who yet live.
 The call of long-lost grace speaks to us all.” from FromSoftware, Inc, Elden Ring(2022)
 
 Member - Ailen Rocio Mansilla - Favorite quote "Love is spelled T-I-M-E"
+
+# 🏋️‍♂️ Gym and Fitness Management App (Python/Django)
+
+## 📖 Overview
+The **Gym and Fitness Management App** is a web-based platform built with **Python (Django)** that enables gym owners, instructors, and members to manage fitness-related activities efficiently.
+
+The app provides two main user roles — **Admin** and **User** — each with specific features and permissions, such as managing workouts, memberships, and instructors.  
+It also integrates the **OpenWeather API** to show real-time weather data for outdoor training sessions.
+
+---
+
+## 🎯 Features
+
+### 👤 User Features
+- Secure registration and login
+- Personalized workout routine view
+- Membership tracking and expiration alerts
+- Real-time weather display via OpenWeather API
+- Profile management
+
+### 🧑‍💼 Admin Features
+- Admin authentication and dashboard
+- Manage users, instructors, and workout plans
+- Define pricing and membership durations
+- Approve/reject participant registrations
+- View statistics (active users, revenue, membership reports)
+
+### ⚙️ General Features
+- Responsive design using **Bootstrap 5**
+- **Role-based access control** for Admins and Users
+- **PostgreSQL** database integration
+- **Heroku** cloud deployment
+- RESTful API integration with OpenWeather
+
+---
+
+## 🏗️ Tech Stack
+
+| Component | Technology | Description |
+|------------|-------------|-------------|
+| **Backend** | Python (Django) | Core logic, authentication, and API integration |
+| **Frontend** | HTML, CSS, Bootstrap 5 | Responsive and user-friendly interface |
+| **Database** | PostgreSQL | Stores users, workouts, and membership data |
+| **Hosting** | Heroku | Cloud deployment and scalability |
+| **API Integration** | OpenWeather API | Real-time weather data |
+| **Version Control** | Git + GitHub | Collaboration and source control |
+
+---
+
+## 🚀 Installation & Setup
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the repository
+
+git clone https://github.com/<your-username>/gym-management-django.git
+cd gym-management-django
+
+---
+
+### 2. Create and activate a virtual environment
+
+python -m venv venv
+source venv/bin/activate  # For Mac/Linux
+venv\Scripts\activate     # For Windows
+
+---
+
+### 3. Install dependencies
+
+pip install -r requirements.txt
+
+---
+
+### 4. Create .env file
+
+In progress - not needed
+
+---
+
+### 5. Apply migrations and run server
+
+Migration in progress - not needed
+python manage.py runserver
+
+---
+
+### 6. Access the App
+
+Go to http://localhost:8000
+
+## 🧩 Project Structure
+
+gym-management-django/
+│
+├── core/                # Main Django app (settings, urls, wsgi)
+├── users/               # User and authentication logic
+├── workouts/            # Workout routines and assignments
+├── memberships/         # Membership management
+├── templates/           # HTML templates (Bootstrap 5)
+├── static/              # CSS, JS, images
+├── requirements.txt     # Python dependencies
+├── Procfile             # Heroku deployment file
+├── runtime.txt          # Python version for Heroku
+└── README.md            # Project documentation
+

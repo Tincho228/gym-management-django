@@ -7,4 +7,4 @@
 from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse("Gym Management App is Live! 🎉")
+    return HttpResponse("Gym Management App is Live!")

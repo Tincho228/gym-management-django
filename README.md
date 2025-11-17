@@ -53,14 +53,14 @@ It also integrates the **OpenWeather API** to show real-time weather data for ou
 
 ## 🏗️ Tech Stack
 
-| Component           | Technology             | Description                                     |
-| ------------------- | ---------------------- | ----------------------------------------------- |
-| **Backend**         | Python (Django)        | Core logic, authentication, and API integration |
-| **Frontend**        | HTML, CSS, Bootstrap 5 | Responsive and user-friendly interface          |
-| **Database**        | PostgreSQL             | Stores users, workouts, and membership data     |
-| **Hosting**         | Heroku                 | Cloud deployment and scalability                |
-| **API Integration** | OpenWeather API        | Real-time weather data                          |
-| **Version Control** | Git + GitHub           | Collaboration and source control                |
+| Component | Technology | Description |
+|------------|-------------|-------------|
+| **Backend** | Python (Django) | Core logic, authentication, and API integration |
+| **Frontend** | HTML, CSS | Responsive and user-friendly interface |
+| **Database** | PostgreSQL | Stores users, workouts, and membership data |
+| **Hosting** | Heroku | Cloud deployment and scalability |
+| **API Integration** | OpenWeather API | Real-time weather data |
+| **Version Control** | Git + GitHub | Collaboration and source control |
 
 ---
 
@@ -85,7 +85,7 @@ venv\Scripts\activate # For Windows
 
 ### 3. Install dependencies
 
-pip install -r requirements.txt
+pip install -r website/requirements.txt
 
 ---
 

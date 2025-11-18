@@ -12,9 +12,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+#You need to load these variables into your Django settings when the application starts up. 
+#We need to add the loading logic at the very top (before any variable uses).
+
+import os
+from pathlib import Path
+from dotenv import load_dotenv # 👈 Import the load_dotenv function
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# 1. LOAD THE .ENV FILE
+# This looks for the .env file in the current working directory, 
+# which should be the BASE_DIR (the project root).
+load_dotenv()
+
+# Retrieve the OPENWEATHER_API_KEY
+OPENWEATHER_API_KEY = os.environ.get('OPENWEATHER_API_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

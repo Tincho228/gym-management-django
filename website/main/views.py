@@ -1,11 +1,12 @@
 from django.shortcuts import render
 import requests
 from datetime import datetime
+from django.conf import settings
 
 # Create your views here.
 def home(request):
     city = 'Mendoza' # Default city vaariable
-    api_key = '0bd1671316868f5ad2775ab7ede5bf47' # OpenWeatherMap API key / Later to be include in .env file
+    api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric' # API URL with city and API key
     weather_data = {} # Variable to store weather data
     error_message = None
@@ -31,7 +32,7 @@ def home(request):
 
 def dashboard(request):
     city = 'Mendoza' # Default city vaariable
-    api_key = '0bd1671316868f5ad2775ab7ede5bf47' # OpenWeatherMap API key / Later to be include in .env file
+    api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric' # API URL with city and API key
     weather_data = {} # Variable to store weather data
     error_message = None

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 from datetime import datetime
-from django.conf import settings
+from django.conf import settings # Import settings to access environment variables
 
 # Create your views here.
 def home(request):

@@ -18,8 +18,7 @@ from decouple import config
 #You need to load these variables into your Django settings when the application starts up. 
 #We need to add the loading logic at the very top (before any variable uses).
 
-import os
-from pathlib import Path
+
 from dotenv import load_dotenv # 👈 Import the load_dotenv function
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

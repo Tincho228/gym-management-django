@@ -121,31 +121,19 @@ gym-management-django/
 ├── runtime.txt # Python version for Heroku
 └── README.md # Project documentation
 
-## Dependencies and Intall commands
+## 🧮 Database Schema (ERD Overview)
 
-pip install Django==5.2.8
+Entities:
 
-pip install python-decouple
-pip install python-dotenv
-pip install django-environ
+User → Role (Admin/User), profile info
 
-pip install dj-database-url
-pip install psycopg2-binary
+Instructor → Assigned routines
 
-pip install django-heroku
-pip install gunicorn
-pip install whitenoise
+Membership → Plan type, start/end date, status
 
-pip install djangorestframework
-pip install django-cors-headers
-pip install drf-spectacular
-pip install requests
+Workout Routine → Exercises, schedule, linked to User & Instructor
 
-## Update Requirements with
-
-pip freeze > requirements.txt
-
-## Heroku
+## 🖥️ Deployment (Heroku)
 
 heroku login
 heroku git:remote -a gym-management-proj
@@ -157,3 +145,7 @@ git push heroku <branch>:main
 ## Migrations
 
 heroku run python website/manage.py migrate --app gym-management-proj
+
+## Update Requirements with
+
+pip freeze > requirements.txt

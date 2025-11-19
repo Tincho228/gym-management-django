@@ -81,13 +81,13 @@ venv\Scripts\activate     # For Windows
 
 ### 3. Install dependencies
 
-pip install -r website/requirements.txt
+pip install -r requirements.txt
 
 ---
 
 ### 4. Create .env file
 
-In progress - not needed
+OPENWEATHER_API_KEY=your_openweather_api_key
 
 ---
 

@@ -15,6 +15,7 @@ Member - Ailen Rocio Mansilla - Favorite quote "Love is spelled T-I-M-E"
 # 🏋️‍♂️ Gym and Fitness Management App (Python/Django)
 
 ## 📖 Overview
+
 The **Gym and Fitness Management App** is a web-based platform built with **Python (Django)** that enables gym owners, instructors, and members to manage fitness-related activities efficiently.
 
 The app provides two main user roles — **Admin** and **User** — each with specific features and permissions, such as managing workouts, memberships, and instructors.  
@@ -25,6 +26,7 @@ It also integrates the **OpenWeather API** to show real-time weather data for ou
 ## 🎯 Features
 
 ### 👤 User Features
+
 - Secure registration and login
 - Personalized workout routine view
 - Membership tracking and expiration alerts
@@ -32,6 +34,7 @@ It also integrates the **OpenWeather API** to show real-time weather data for ou
 - Profile management
 
 ### 🧑‍💼 Admin Features
+
 - Admin authentication and dashboard
 - Manage users, instructors, and workout plans
 - Define pricing and membership durations
@@ -39,6 +42,7 @@ It also integrates the **OpenWeather API** to show real-time weather data for ou
 - View statistics (active users, revenue, membership reports)
 
 ### ⚙️ General Features
+
 - Responsive design using **Bootstrap 5**
 - **Role-based access control** for Admins and Users
 - **PostgreSQL** database integration
@@ -49,14 +53,14 @@ It also integrates the **OpenWeather API** to show real-time weather data for ou
 
 ## 🏗️ Tech Stack
 
-| Component | Technology | Description |
-|------------|-------------|-------------|
-| **Backend** | Python (Django) | Core logic, authentication, and API integration |
-| **Frontend** | HTML, CSS | Responsive and user-friendly interface |
-| **Database** | PostgreSQL | Stores users, workouts, and membership data |
-| **Hosting** | Heroku | Cloud deployment and scalability |
-| **API Integration** | OpenWeather API | Real-time weather data |
-| **Version Control** | Git + GitHub | Collaboration and source control |
+| Component           | Technology      | Description                                     |
+| ------------------- | --------------- | ----------------------------------------------- |
+| **Backend**         | Python (Django) | Core logic, authentication, and API integration |
+| **Frontend**        | HTML, CSS       | Responsive and user-friendly interface          |
+| **Database**        | PostgreSQL      | Stores users, workouts, and membership data     |
+| **Hosting**         | Heroku          | Cloud deployment and scalability                |
+| **API Integration** | OpenWeather API | Real-time weather data                          |
+| **Version Control** | Git + GitHub    | Collaboration and source control                |
 
 ---
 
@@ -74,8 +78,8 @@ cd gym-management-django
 ### 2. Create and activate a virtual environment
 
 python -m venv venv
-source venv/bin/activate  # For Mac/Linux
-venv\Scripts\activate     # For Windows
+source venv/bin/activate # For Mac/Linux
+venv\Scripts\activate # For Windows
 
 ---
 
@@ -106,14 +110,50 @@ Go to http://localhost:8000
 
 gym-management-django/
 │
-├── core/                # Main Django app (settings, urls, wsgi)
-├── users/               # User and authentication logic
-├── workouts/            # Workout routines and assignments
-├── memberships/         # Membership management
-├── templates/           # HTML templates (Bootstrap 5)
-├── static/              # CSS, JS, images
-├── requirements.txt     # Python dependencies
-├── Procfile             # Heroku deployment file
-├── runtime.txt          # Python version for Heroku
-└── README.md            # Project documentation
+├── core/ # Main Django app (settings, urls, wsgi)
+├── users/ # User and authentication logic
+├── workouts/ # Workout routines and assignments
+├── memberships/ # Membership management
+├── templates/ # HTML templates (Bootstrap 5)
+├── static/ # CSS, JS, images
+├── requirements.txt # Python dependencies
+├── Procfile # Heroku deployment file
+├── runtime.txt # Python version for Heroku
+└── README.md # Project documentation
 
+## Dependencies and Intall commands
+
+pip install Django==5.2.8
+
+pip install python-decouple
+pip install python-dotenv
+pip install django-environ
+
+pip install dj-database-url
+pip install psycopg2-binary
+
+pip install django-heroku
+pip install gunicorn
+pip install whitenoise
+
+pip install djangorestframework
+pip install django-cors-headers
+pip install drf-spectacular
+pip install requests
+
+## Update Requirements with
+
+pip freeze > requirements.txt
+
+## Heroku
+
+heroku login
+heroku git:remote -a gym-management-proj
+
+git add .
+git commit -m "Deploy update"
+git push heroku <branch>:main
+
+## Migrations
+
+heroku run python website/manage.py migrate --app gym-management-proj

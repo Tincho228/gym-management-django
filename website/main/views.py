@@ -1,9 +1,14 @@
+#from django.shortcuts import render
+#
+## Create your views here.
+#def home(request):
+#    return render(request, 'main/home.html')
+
 from django.shortcuts import render
 import requests
 from datetime import datetime
 from django.conf import settings # Import settings to access environment variables
 
-# Create your views here.
 def home(request):
     city = 'Mendoza' # Default city vaariable
     api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file

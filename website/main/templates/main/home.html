@@ -3,7 +3,22 @@
 {% block title %}Home{% endblock %}
 
 {% block dashboard %}
-<h2>Welcome to your dashboard!</h2>
+<h2>Welcome to Home!</h2>
+<!-- Displaying current weather information: -->
+{% if weather_data %}
+    <div>
+        <h3>Current weather in {{ weather_data.city }}</h3>
+        <p>Temperature: {{ weather_data.temperature }}°C</p>
+        <p>Description: {{ weather_data.description }}</p>
+        <p>Wind Speed: {{ weather_data.wind_speed }} m/s</p>
+        <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Weather icon">
+    </div>
+<!-- If there is an error message, display it -->
+{% elif error_message %}
+    <p class="error">{{ error_message }}</p>
+{% else %}
+    <p>No weather data available.</p>
+{% endif %}
 {% endblock %}
 
 {% block content %}

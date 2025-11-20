@@ -1,11 +1,27 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Login - Gym Management App{% endblock %}
 
 {% block dashboard %}
-<h2>Login</h2>
+<h1>Login</h1>
 {% endblock %}
 
 {% block content %}
-<form></form>
+<form method="post" novalidate>
+  <!-- used to protect against unsafe HTTP methods -->
+  {% csrf_token %} 
+  {{ form.non_field_errors }}
+  <p>
+    <label>Username</label><br>
+    {{ form.username }}
+  </p>
+  <p>
+    <label>Password</label><br>
+    {{ form.password }}
+  </p>
+
+  <button type="submit">Log in</button>
+</form>
+
+<p>Don't have an account? <a href="{% url 'register' %}">Sign up HERE</a></p>
 {% endblock %}

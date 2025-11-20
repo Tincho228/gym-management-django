@@ -4,21 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My App{% endblock %}</title>
+    <title>{% block title%}Gym Management App{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
 </head>
 <body>
-
-    <!-- Navigation Bar -->
     <nav>
         <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'dashboard' %}">Dashboard</a>
+        {% if user.is_authenticated %}
+            {% if user.profile.is_admin %}
+                <a href="{% url 'dashboard' %}">Admin Dashboard</a>
+            {% else %}
+                <a href="{% url 'dashboard' %}">Client Dashboard</a>
+            {% endif %}
+        {% endif %}
         <a href="{% url 'about' %}">About Us</a>
         <a href="{% url 'contact' %}">Contact</a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
         <a href="{% url 'login' %}">Login/Sign Up</a>
+        {% endif %}
     </nav>
 
-    <!-- Main container -->
     <div class="container">
         <!-- Dashboard section -->
         <div class="dashboard">
@@ -30,14 +37,14 @@
         <!-- Additional page content -->
         <div class="content">
             {% block content %}
-            <!-- more content  -->
+            <!-- content -->
             {% endblock %}
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        Gym management &copy; {% now "Y" %}
+        Gym Management App &copy; {% now "Y" %}
     </footer>
     <script src="{% static 'main/javascript/script.js' %}"></script>
 </body>

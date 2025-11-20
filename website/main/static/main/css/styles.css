@@ -1,0 +1,28 @@
+body{
+    background-color: #7293A0;
+    color:rgb(13, 13, 13);
+    
+}
+nav{
+    background-color: #A0A4B8;
+}
+main{
+    background-color: #D8DDEF;
+}
+footer{
+    /* background-color: #B6C4A2; */
+    background-color: #8E9B90;
+}
+#login{
+    background-color: #A0A4B8;
+}
+
+.forecast-card {
+    border: 1px solid #6d6d6d;
+    padding: 0.7em;
+    margin: 1em;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    background-color: #45B69C;
+}

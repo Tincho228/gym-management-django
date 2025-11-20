@@ -6,24 +6,12 @@
 <h2 id="dashboard-title">Dashboard</h2>
 
 {% if context %}
-    <h3>Current Weather in {{ context.city }}</h3>
-    <style>
-        /* Simple styling for demonstration */
-        .forecast-card {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 10px;
-            display: inline-block;
-            width: 200px;
-            text-align: center;
-        }
-    </style>
+    <h3>Current Weather in {{ city }}</h3>
     <!-- Loop through forecast list and display each item -->
     <div class="forecast-container">
-        {% for day in context.daily_forecasts %}
+        {% for day in daily_forecasts %}
         <div class="forecast-card">
-            
-            <h2>{{ day.day_name }}</h2>
+            <h3>{{ day.day_name }}</h3>
             <p><strong>Time:</strong> {{ day.time_str }}</p>
 
             <p><strong>Temp:</strong> {{ day.temp|floatformat:1 }}°C</p>
@@ -49,5 +37,29 @@
 {% endblock %}
 
 {% block content %}
-<div></div>
+<!-- ADMIN DASHBOARD -->
+{% if role == "admin" %}
+<section class="admin-dashboard">
+    <h2>Admin Dashboard</h2>
+
+    <p>Welcome, {{ request.user.first_name }}!</p>
+
+    <ul>
+        <li>Manage Users</li>
+        <li>Manage Memberships</li>
+        <li>Manage Instructors</li>
+        <li>View Reports</li>
+    </ul>
+</section>
+{% endif %}
+<!-- CLIENT DASHBOARD -->
+{% if role == "client" %}
+<section class="client-dashboard">
+    <h2>Dashboard</h2>
+
+    <p>Welcome, {{ request.user.first_name }}!</p>
+
+    <p>Your membership info will go here.</p>
+</section>
+{% endif %}
 {% endblock %}

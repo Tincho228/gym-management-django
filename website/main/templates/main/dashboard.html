@@ -4,6 +4,48 @@
 
 {% block dashboard %}
 <h2 id="dashboard-title">Dashboard</h2>
+
+{% if context %}
+    <h3>Current Weather in {{ context.city }}</h3>
+    <style>
+        /* Simple styling for demonstration */
+        .forecast-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+    <!-- Loop through forecast list and display each item -->
+    <div class="forecast-container">
+        {% for day in context.daily_forecasts %}
+        <div class="forecast-card">
+            
+            <h2>{{ day.day_name }}</h2>
+            <p><strong>Time:</strong> {{ day.time_str }}</p>
+
+            <p><strong>Temp:</strong> {{ day.temp|floatformat:1 }}°C</p>
+            
+            <img src="https://openweathermap.org/img/wn/{{ day.icon_code }}@2x.png" alt="{{ day.description }}" width="50" height="50">
+            
+            <p>{{ day.description }}</p>
+
+            <p><strong>Wind:</strong> {{ day.wind_speed|floatformat:1 }} m/s</p>
+            
+        </div>
+        {% empty %}
+        <p>No forecast data available.</p>
+        {% endfor %}
+    </div>
+<!-- If there is an error message, display it -->
+{% elif error_message %}
+    <p class="error">{{ error_message }}</p>
+{% else %}
+    <p>No weather data available.</p>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}

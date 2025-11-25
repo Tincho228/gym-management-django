@@ -3,12 +3,16 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block dashboard %}
-<h2 id="dashboard-title">Dashboard</h2>
+{% if role == "admin" %}
+<h1 class="dashboard-title">Welcome to your Admin Dashboard {{ request.user.first_name }}</h1>
+{% else %}
+<h1 class="dashboard-title">Welcome to your Dashboard {{ request.user.first_name }}</h1>
+{% endif %}
 
 {% if context %}
-    <h3>Current Weather in {{ city }}</h3>
     <!-- Loop through forecast list and display each item -->
     <div class="forecast-container">
+        <h3>Current Weather in {{city}}</h3>
         {% for day in daily_forecasts %}
         <div class="forecast-card">
             <h3>{{ day.day_name }}</h3>
@@ -40,26 +44,105 @@
 <!-- ADMIN DASHBOARD -->
 {% if role == "admin" %}
 <section class="admin-dashboard">
-    <h2>Admin Dashboard</h2>
+    <div class="workout-plans">
+        <div class="routine-list">
+            <div class = "title-with-button"> 
+                <h3>Your Routines</h3>
+                <a href="/" class="add-button" id="add-routine">+Add new</a>
+            </div>
+            {% if routines %}
+                <ul>
+                    {% for routine in routines %}
+                        <li>
+                            <strong>{{ routine.name }}</strong><br>
+                            {{ routine.description }}<br>
+                            Duration: {{ routine.duration_minutes }} minutes
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No routines created yet.</p>
+            {% endif %}
+        </div>
+    </div>>
+    <div class = "memberships">
+        <div class = "title-with-button"> 
+            <h3>Memberships offered</h3>
+            <a href="/" class="add-button" id="edit-memberships">Edit</a>
+        </div>
+        <ul>
+            {% for value, label in membership_types %}
+            <li>{{ label }} ({{ value }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class = "members">
+        <div class = "title-with-button"> 
+            <h3>Members</h3>
+            <a href="/" class="add-button" id="edit-memberships">Edit</a>
+        </div>
+        <table class="membership-table">
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Plan</th>
+            <th>Start Date</th>
+            <th>Expiration Date</th>
+            <th>Days Remaining</th>
+            <th>Status</th>
+        </tr>
+    </thead>
 
-    <p>Welcome, {{ request.user.first_name }}!</p>
+    <tbody>
+        {% for membership in all_memberships %}
+        <tr>
+            <td>{{ membership.user.username }}</td>
+            <td>{{ membership.get_plan_type_display }}</td>
+            <td>{{ membership.start_date }}</td>
+            <td>{{ membership.expiration_date }}</td>
+            <td>{{ membership.days_remaining }}</td>
 
-    <ul>
-        <li>Manage Users</li>
-        <li>Manage Memberships</li>
-        <li>Manage Instructors</li>
-        <li>View Reports</li>
-    </ul>
+            <td>
+                {% if membership.is_active %}
+                    <span style="color: green; font-weight: bold;">Active</span>
+                {% else %}
+                    <span style="color: red; font-weight: bold;">Expired</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align:center;">No memberships found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
 </section>
 {% endif %}
 <!-- CLIENT DASHBOARD -->
 {% if role == "client" %}
 <section class="client-dashboard">
-    <h2>Dashboard</h2>
-
-    <p>Welcome, {{ request.user.first_name }}!</p>
-
-    <p>Your membership info will go here.</p>
+    <div class="workout-plans">
+        <div class="workout-plans">
+            <h3>Your Routines</h3>
+            {% if routines %}
+            <ul>
+                {% for routine in routines %}
+                    <li>
+                        <strong>{{ routine.name }}</strong><br>
+                        {{ routine.description }}<br>
+                        Duration: {{ routine.duration_minutes }} minutes
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No routines created yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    
 </section>
 {% endif %}
 {% endblock %}

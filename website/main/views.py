@@ -7,9 +7,19 @@ import requests
 from datetime import datetime
 from website import settings
 from .forms import CustomUserCreationForm
+from .models import Instructor, Membership, Routine, Exercise, UserProfile
 
 
 def home(request):
+    # user information and routines
+    user = request.user
+    role = None
+    routines = None
+
+    if user.is_authenticated:
+        role = "admin" if hasattr(user, "profile") and user.profile.is_admin else "client"
+
+    # weather data
     city = 'Mendoza' # Default city variable
     api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric' # API URL with city and API key
@@ -31,13 +41,35 @@ def home(request):
         }
     except ValueError as e:
         error_message = str(e)
+        
+    context = {
+        "user": user,
+        "role": role,
+        "routines": routines,
+        "weather_data": weather_data,
+        "error_message": error_message,
+    }
 
     # Returning the rendered template with weather data and error message
-    return render(request, 'main/home.html', {'weather_data': weather_data, 'error_message': error_message})
+    return render(request, 'main/home.html', context)
 
+# Dashboard is only visible to logged users
 @login_required
 def dashboard(request):
-    city = 'Mendoza' # Default city vaariable
+    user = request.user
+    role = "admin" if user.profile.is_admin else "client"
+    routines = None
+    if role == "admin" and hasattr(user, "instructor_profile"):
+        routines = user.instructor_profile.routines.all()
+    
+    # Memberhsips info
+    membership_types = Membership.PLAN_CHOICES
+
+    # All members
+    all_memberships = Membership.objects.select_related("user").all()
+
+    # Weather
+    city = 'Mendoza' # Default city variable
     api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric' # API URL with city and API key
     weather_data = {} # Variable to store weather data
@@ -80,6 +112,10 @@ def dashboard(request):
             }
 
     context = {
+        "role": role,
+        "routines": routines,
+        "membership_types": membership_types,
+        "all_memberships": all_memberships,
         'city': city_name,
         # Pass the list of the 5 daily forecasts to the template
         'daily_forecasts': list(daily_forecasts.values()), 

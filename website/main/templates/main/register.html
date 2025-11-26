@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Register - Gym Management App{% endblock %}
+
+{% block dashboard %}
+<h1>Sing up to start working out!</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  <p>
+    <label>Username</label><br>
+    {{ form.username }}
+    {% if form.username.errors %}
+      <br><span style="color:red;">{{ form.username.errors.0 }}</span>
+    {% endif %}
+  </p>
+  <p>
+    <label>Password</label><br>
+    {{ form.password1 }}
+    {% if form.password1.errors %}
+      <br><span style="color:red;">{{ form.password1.errors.0 }}</span>
+    {% endif %}
+  </p>
+  <p>
+    <label>Confirm Password</label><br>
+    {{ form.password2 }}
+    {% if form.password2.errors %}
+      <br><span style="color:red;">{{ form.password2.errors.0 }}</span>
+    {% endif %}
+  </p>
+
+  <input type="submit" value="register">
+  {{ form.errors }}
+</form>
+
+<p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+{% endblock %}

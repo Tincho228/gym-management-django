@@ -3,10 +3,23 @@
 {% block title %}Home{% endblock %}
 
 {% block dashboard %}
-<h2>Welcome to Home!</h2>
+<div id="home-hero-text">
+    <h1>Gym & Fitness Management App</h1>
+    <img src="/">
+    <p>Because fitness is not a lifestyle, it is your health.<br>
+        Workout with personalized routines, curated by the best trainers.
+    </p>
+    {% if user.is_authenticated %}
+    <a href="/dashboard" class="add-button">See Routines</a>
+    {% else %}
+    <a href="/login" class="add-button">Join Now</a>
+    {% endif %}
+</div>
+
+
 <!-- Displaying current weather information: -->
 {% if weather_data %}
-    <div>
+    <div id="home-weather-widget">
         <h3>Current weather in {{ weather_data.city }}</h3>
         <p>Temperature: {{ weather_data.temperature }}°C</p>
         <p>Description: {{ weather_data.description }}</p>
@@ -22,5 +35,27 @@
 {% endblock %}
 
 {% block content %}
-<p>This is the homepage content.</p>
+<section id="home-routines">
+    <h2>Check out our routines</h2>
+    <div class="workout-plans">
+        <div class="workout-plans">
+            <h3>Your Routines</h3>
+            {% if routines %}
+            <ul>
+                {% for routine in routines %}
+                    <li>
+                        <strong>{{ routine.name }}</strong><br>
+                        {{ routine.description }}<br>
+                        Duration: {{ routine.duration_minutes }} minutes
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No routines created yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}

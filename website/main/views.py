@@ -1,16 +1,26 @@
-#from django.shortcuts import render
-#
-## Create your views here.
-#def home(request):
-#    return render(request, 'main/home.html')
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import requests
 from datetime import datetime
-from django.conf import settings # Import settings to access environment variables
+from website import settings
+from .forms import CustomUserCreationForm
+from .models import Instructor, Membership, Routine, Exercise, UserProfile
+
 
 def home(request):
-    city = 'Mendoza' # Default city vaariable
+    # user information and routines
+    user = request.user
+    role = None
+    routines = None
+
+    if user.is_authenticated:
+        role = "admin" if hasattr(user, "profile") and user.profile.is_admin else "client"
+
+    # weather data
+    city = 'Mendoza' # Default city variable
     api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric' # API URL with city and API key
     weather_data = {} # Variable to store weather data
@@ -31,12 +41,35 @@ def home(request):
         }
     except ValueError as e:
         error_message = str(e)
+        
+    context = {
+        "user": user,
+        "role": role,
+        "routines": routines,
+        "weather_data": weather_data,
+        "error_message": error_message,
+    }
 
     # Returning the rendered template with weather data and error message
-    return render(request, 'main/home.html', {'weather_data': weather_data, 'error_message': error_message})
+    return render(request, 'main/home.html', context)
 
+# Dashboard is only visible to logged users
+@login_required
 def dashboard(request):
-    city = 'Mendoza' # Default city vaariable
+    user = request.user
+    role = "admin" if user.profile.is_admin else "client"
+    routines = None
+    if role == "admin" and hasattr(user, "instructor_profile"):
+        routines = user.instructor_profile.routines.all()
+    
+    # Memberhsips info
+    membership_types = Membership.PLAN_CHOICES
+
+    # All members
+    all_memberships = Membership.objects.select_related("user").all()
+
+    # Weather
+    city = 'Mendoza' # Default city variable
     api_key = settings.OPENWEATHER_API_KEY # OpenWeatherMap API key / Later to be include in .env file
     url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric' # API URL with city and API key
     weather_data = {} # Variable to store weather data
@@ -79,14 +112,19 @@ def dashboard(request):
             }
 
     context = {
+        "role": role,
+        "routines": routines,
+        "membership_types": membership_types,
+        "all_memberships": all_memberships,
         'city': city_name,
         # Pass the list of the 5 daily forecasts to the template
         'daily_forecasts': list(daily_forecasts.values()), 
+        'error_message': error_message,
     }
 
     # Returning the rendered template with weather data and error message
 
-    return render(request, 'main/dashboard.html', {'error_message': error_message, 'context': context})
+    return render(request, 'main/dashboard.html', context)
 
 def about(request):
     return render(request, 'main/about.html')
@@ -95,4 +133,41 @@ def contact(request):
     return render(request, 'main/contact.html')
 
 def login_view(request):
-    return render(request, 'main/login.html')
+    # return render(request, 'main/login.html')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)  # built-in
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)         # sets session
+            messages.success(request, f"Welcome back, {user.username}!")
+            return redirect('dashboard')  # or use next param
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+
+    return render(request, "main/login.html", {"form": form})
+
+def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.error(request, "Please fix the errors below.")
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, "main/register.html", {"form": form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

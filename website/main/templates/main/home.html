@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block dashboard %}
-<div>
+<div id="home-hero-text">
     <h1>Gym & Fitness Management App</h1>
     <img src="/">
     <p>Because fitness is not a lifestyle, it is your health.<br>
@@ -19,7 +19,7 @@
 
 <!-- Displaying current weather information: -->
 {% if weather_data %}
-    <div>
+    <div id="home-weather-widget">
         <h3>Current weather in {{ weather_data.city }}</h3>
         <p>Temperature: {{ weather_data.temperature }}°C</p>
         <p>Description: {{ weather_data.description }}</p>
@@ -57,9 +57,5 @@
     </div>
 </section>
 
-<footer>
-    <p>&copy 2025 Gym & Fitness Management App</p>
-    <p>Final Project - CSE499</p>
-    <p>Ailen Mansilla - Martin Quinteros - Johan Tellez</p>
-</footer>
+
 {% endblock %}

@@ -5,16 +5,32 @@ body{
 }
 nav{
     background-color: #DCE2BD;
-    max-width: 100%;
+    min-width: 100%;
     display: flex; 
-    justify-content: center; 
-    align-items: left;
+    /* justify-content: left;  */
+    align-items: center;
+    padding: 0.7rem;
     
+}
+a{
+    color: rgb(13, 13, 13);
+    text-decoration: none;
+    padding: 0.3rem;
+}
+a:active{
+    color: rgb(13, 13, 13);
+}
+a:hover{
+    color: #B6C4A2
 }
 nav a{
     color: rgb(13, 13, 13);
-
 }
+
+.login-link{
+    margin-left: auto;
+}
+
 main{
     background-color: #D8DDEF;
 }
@@ -55,4 +71,33 @@ footer{
 
 .membership-table tr:nth-child(even) {
     background-color: #fafafa;
+}
+#home-weather-widget{
+    border: 1px solid #6d6d6d;
+    padding: 0.7rem;
+    margin: 0 auto;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    background-color: #DCE2BD;
+}
+#home-hero-text{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.7rem;
+}
+#home-hero-text p{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row: 2;
+}
+#home-hero-text h1{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row: 1;
+}
+#home-hero-text img{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row: 1;
 }

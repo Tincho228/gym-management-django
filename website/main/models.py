@@ -50,6 +50,12 @@ class Routine(models.Model):
     description = models.TextField()
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, related_name='routines')
     duration_minutes = models.IntegerField(default=60)
+
+    clients = models.ManyToManyField(
+        'UserProfile',
+        related_name='routines',
+        blank=True
+    )
     
     def __str__(self):
         return self.name

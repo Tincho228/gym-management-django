@@ -9,7 +9,7 @@
 <h1 class="dashboard-title">Welcome to your Dashboard {{ request.user.first_name }}</h1>
 {% endif %}
 
-{% if context %}
+{% if daily_forecasts %}
     <!-- Loop through forecast list and display each item -->
     <div class="forecast-container">
         <h3>Current Weather in {{city}}</h3>
@@ -64,7 +64,7 @@
                 <p>No routines created yet.</p>
             {% endif %}
         </div>
-    </div>>
+    </div>
     <div class = "memberships">
         <div class = "title-with-button"> 
             <h3>Memberships offered</h3>

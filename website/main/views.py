@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from datetime import datetime
 from website import settings
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, NewMembershipForm
 from .models import Instructor, Membership, Routine, Exercise, UserProfile
 
 
@@ -160,13 +160,32 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')
+            return redirect('add-membership')
         else:
             messages.error(request, "Please fix the errors below.")
     else:
         form = CustomUserCreationForm()
 
     return render(request, "main/register.html", {"form": form})
+
+def add_membership_view(request):
+    if request.user.is_authenticated:
+        if hasattr(request.user, "membership"):
+            return redirect("dashboard")
+        if request.method == "POST":
+            form = NewMembershipForm(request.POST)
+            if form.is_valid():
+                plan = form.cleaned_data["plan_type"]
+                duration = form.cleaned_data["duration_days"]
+                Membership.objects.create(
+                    user = request.user,
+                    plan_type = plan,
+                    duration_days = duration
+                )
+                return redirect('dashboard')
+        else:
+            form = NewMembershipForm()
+    return render(request, 'main/add-membership.html', {"form": form})
 
 def logout_view(request):
     logout(request)

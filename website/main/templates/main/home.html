@@ -35,27 +35,36 @@
 {% endblock %}
 
 {% block content %}
-<section id="home-routines">
-    <h2>Check out our routines</h2>
-    <div class="workout-plans">
+{% if user.is_authenticated and not user.profile.is_admin %}
+    {% if not user.membership %}
+    <a id="choose-a-membership-banner" href="/add-membership">Don't have a membership yet? Choose a Membership now</a>
+    {% else%}
+    <section id="home-routines">
+        <h2>Check out your routines</h2>
         <div class="workout-plans">
-            <h3>Your Routines</h3>
-            {% if routines %}
-            <ul>
-                {% for routine in routines %}
-                    <li>
-                        <strong>{{ routine.name }}</strong><br>
-                        {{ routine.description }}<br>
-                        Duration: {{ routine.duration_minutes }} minutes
-                    </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-                <p>No routines created yet.</p>
-            {% endif %}
+            <div class="workout-plans">
+                <h3>Your Routines</h3>
+                {% if routines %}
+                <ul>
+                    {% for routine in routines %}
+                        <li>
+                            <strong>{{ routine.name }}</strong><br>
+                            {{ routine.description }}<br>
+                            Duration: {{ routine.duration_minutes }} minutes
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p>No routines created yet.</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    {% endif %}
+{% endif %}
 
+<div>
+    <h2>Meet our Instructors</h2>
+</div>
 
 {% endblock %}

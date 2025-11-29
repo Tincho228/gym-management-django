@@ -5,7 +5,8 @@ body{
 }
 nav{
     background-color: #DCE2BD;
-    min-width: 100%;
+    max-width: 100%;
+    margin: 0;
     display: flex; 
     /* justify-content: left;  */
     align-items: center;
@@ -36,6 +37,9 @@ main{
 }
 footer{
     background-color: #B6C4A2;
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
 }
 #login{
     background-color: #93C0A4;
@@ -52,8 +56,6 @@ footer{
     border: 1px solid #6d6d6d;
     padding: 0.7em;
     margin: 1em;
-    display: inline-block;
-    width: 50%;
     text-align: center;
     background-color: #DCE2BD;
 }
@@ -62,6 +64,7 @@ footer{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    padding: 0.3rem;
 }
 
 .membership-table th,

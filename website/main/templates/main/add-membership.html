@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% block title %}Choose Membership Plan{% endblock %}
+
+{% block content %}
+
+<div>
+<h1>Choose Membership Plan</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+    <label>{{ form.plan_type.label }}</label><br>
+    {{ form.plan_type }}
+    {{ form.plan_type.errors }}
+    </div>
+    <div>
+    <label>{{ form.duration_days.label }}</label><br>
+    {{ form.duration_days }}
+    {{ form.duration_days.errors }}
+    </div>
+    {{ form.non_field_errors }}
+
+    <button type="submit">Select Membership Plan</button>
+</form>
+</div>
+{% endblock %}

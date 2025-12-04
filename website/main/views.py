@@ -33,12 +33,19 @@ def home(request):
             error_message = response.get('message', 'Error retrieving weather data.')
 
         weather_data = {
-            'city': response['name'],
-            'temperature': response['main']['temp'],
-            'description': response['weather'][0]['description'],
-            'wind_speed': response['wind']['speed'],
-            'icon': response['weather'][0]['icon'],
+            'city': response.get('name', city),
+            'temperature': response.get('main', {}).get('temp'),
+            'description': response.get('weather', [{}])[0].get('description'),
+            'wind_speed': response.get('wind', {}).get('speed'),
+            'icon': response.get('weather', [{}])[0].get('icon'),
         }
+        #weather_data = {
+        #    'city': response['name'],
+        #    'temperature': response['main']['temp'],
+        #    'description': response['weather'][0]['description'],
+        #    'wind_speed': response['wind']['speed'],
+        #    'icon': response['weather'][0]['icon'],
+        #}
     except ValueError as e:
         error_message = str(e)
         

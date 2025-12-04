@@ -3,17 +3,22 @@
 {% block title %}Home{% endblock %}
 
 {% block dashboard %}
+
+<!-- Displaying Hero Section -->
 <div id="home-hero-text">
-    <h1>Gym & Fitness Management App</h1>
-    <img src="/">
-    <p>Because fitness is not a lifestyle, it is your health.<br>
-        Workout with personalized routines, curated by the best trainers.
-    </p>
-    {% if user.is_authenticated %}
-    <a href="/dashboard" class="add-button">See Routines</a>
-    {% else %}
-    <a href="/login" class="add-button">Join Now</a>
-    {% endif %}
+    <img src="/static/main/images/hero.jpg" alt="Fitness Hero Image">
+    <div class="hero-content">
+        <h1>Gym & Fitness Management App</h1>
+        <p>Because fitness is not a lifestyle, it is your health.<br>
+            Workout with personalized routines, curated by the best trainers.
+        </p>
+        {% if user.is_authenticated %}
+        <a href="/dashboard" class="custom-hero-button">See Routines</a>
+        {% else %}
+        <a href="/login" class="custom-hero-button">Join Now</a>
+        {% endif %}
+    </div>
+    
 </div>
 
 

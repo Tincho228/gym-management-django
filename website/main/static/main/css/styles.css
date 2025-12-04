@@ -153,6 +153,73 @@ main{
 
 }
 
+/* PLan Section Styles */
+.plan-section {
+    margin: 40px auto; /* Centers the section and adds vertical spacing */
+    font-family: 'Roboto', sans-serif; /* Clean, modern font */
+}
+
+.plan-section h2 {
+    margin: 0 0 15px 0; /* Spacing below the title */
+    font-size: 1.5rem; /* Larger font size for city name */
+    font-weight: 600;
+    text-align: center;
+}
+
+.card-container {
+    display: flex; /* Aligns cards horizontally */
+    justify-content: center;
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+}
+
+.card {
+    position: relative; /* Essential for positioning the overlay text */
+    width: 300px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed to maintain aspect ratio */
+    border-radius: 15px; /* Creates rounded corners */
+    overflow: hidden; /* Ensures image and overlay stay within rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Adds depth/shadow effect */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lifts the card slightly on hover */
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the card without distortion */
+    display: block;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0; /* Positions the overlay at the bottom */
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    color: white;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center; /* Centers the text horizontally within the overlay */
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 15px; /* Matches the card's bottom corners */
+    border-bottom-right-radius: 15px; /* Matches the card's bottom corners */
+    /* Optional: for the button look in the image */
+    margin: 10px; 
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    backdrop-filter: blur(5px); /* Adds a subtle blur effect as seen in modern designs */
+    color: white;
+}
+
 
 
 /* Footer Section Styles */

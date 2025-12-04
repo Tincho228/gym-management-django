@@ -118,17 +118,18 @@ main{
 
 #home-weather-widget {
     /* --- Card Container Styles --- */
-    background: linear-gradient(135deg, #4a90e2 0%, #63b8ff 100%); /* Blue gradient background */
+    background-image: linear-gradient(to right, #489FB5, #103783); /* Transition to a deep, dark blue #103783 */
+    background-color: #489FB5;
     border-radius: 15px; /* Rounded corners for a modern look */
-    padding: 25px; /* Inner spacing */
+    padding:25px 0px; /* Inner spacing */
     color: white; /* White text for contrast */
-    max-width: 350px; /* Limits the width on large screens */
+    width: 100%; /* Limits the width on large screens */
     margin: 5px auto; /* Centers the widget on the page */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /* Soft, professional shadow */
     font-family: 'Roboto', sans-serif; /* Clean, modern font */
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns content to the left */
+    align-items: center; /* Aligns content to the left */
 }
 
 /* --- Typography Styles --- */
@@ -148,8 +149,8 @@ main{
 #home-weather-widget img {
     width: 80px; /* Sets a fixed size for the icon */
     height: auto;
-    margin-top: -10px; /* Pulls the icon up slightly into the main content flow */
-    align-self: flex-end; /* Places the icon in the bottom-right corner */
+    margin-top: -10px; /*Pulls the icon up slightly into the main content flow */
+
 }
 
 

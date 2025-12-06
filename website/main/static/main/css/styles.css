@@ -220,6 +220,83 @@ main{
     color: white;
 }
 
+/* Instructors Section Styles */
+
+/* Container for the entire section */
+.instructors-section {
+    /* Required to create a visible window for the moving track */
+    overflow: hidden; 
+    white-space: nowrap; /* Ensures all content stays on one line */
+    padding: 20px 0;
+}
+
+/* The track that will move */
+.marquee-track {
+    display: flex; /* Arranges cards side-by-side */
+    gap: 30px; /* Space between the cards */
+    padding: 10px 0; 
+    
+    /* Crucial CSS for Marquee: */
+    width: fit-content; /* Allows the track to be as wide as its content (original + duplicate) */
+    animation: scrolling-marquee 30s linear infinite; /* Apply the animation */
+}
+.marquee-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Pause the animation on hover */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrolling-marquee {
+    0% {
+        transform: translateX(0%); /* Start at the original position */
+    }
+    100% {
+        /* Move exactly the width of the original content block */
+        transform: translateX(-50%); 
+    }
+}
+
+/* Individual instructor card styling */
+.instructor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0; /* Prevents cards from shrinking */
+    width: 200px; /* Fixed width for each card */
+}
+
+/* Wrapper to create the circular shape and shadow */
+.profile-image-wrapper {
+    width: 150px; /* Diameter of the circle */
+    height: 150px;
+    border-radius: 50%; /* Makes the wrapper circular */
+    overflow: hidden; /* Clips the image to the circle */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft, subtle drop shadow */
+    margin-bottom: 10px;
+    background-color: white; /* Fallback/background for the image */
+}
+
+/* Styling the image inside the wrapper */
+.profile-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+    border-radius: 50%; /* Optional, ensures clipping is smooth */
+}
+
+/* Styling for the name text */
+.instructor-name {
+    font-family: sans-serif; /* Use a clear font */
+    font-size: 1.1em;
+    font-weight: 600; /* Bold the name */
+    color: #333; /* Dark text color */
+    margin: 0;
+}
+
 
 
 /* Footer Section Styles */

@@ -12,9 +12,10 @@ from .models import Instructor, Membership, Routine, Exercise, UserProfile
 
 def home(request):
     # user information and routines
-    user = request.user
+    user = request.user # Get the current user
     role = None
     routines = None
+    instructors = Instructor.objects.all() #I want to show all instructors in home page
 
     if user.is_authenticated:
         role = "admin" if hasattr(user, "profile") and user.profile.is_admin else "client"
@@ -53,6 +54,7 @@ def home(request):
         "user": user,
         "role": role,
         "routines": routines,
+        "instructors": instructors,
         "weather_data": weather_data,
         "error_message": error_message,
     }

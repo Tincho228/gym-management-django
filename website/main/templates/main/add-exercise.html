@@ -1,14 +1,14 @@
 {% extends 'main/base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>{{ editing|default:"Add Routine" }}</h2>
+    <h2>{{ editing|default:"Add Exercise" }}</h2>
 
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
 
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'routine-list' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'exercise-list' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

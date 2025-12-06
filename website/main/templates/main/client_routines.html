@@ -1,0 +1,61 @@
+{% extends "main/base.html" %}
+
+{% block title %}My Routines{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Available Routines</h1>
+
+<p class="text-muted">
+    Choose the routines you want to follow. They will appear on your dashboard.
+</p>
+
+<div class="row g-3">
+    {% for routine in routines %}
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+
+                <h4 class="card-title">{{ routine.name }}</h4>
+                <p class="card-text">
+                    {{ routine.description }}
+                </p>
+
+                <p class="mb-1">
+                    <strong>Instructor:</strong>
+                    {{ routine.instructor.user.get_full_name|default:routine.instructor.user.username }}
+                </p>
+                <p class="mb-1">
+                    <strong>Duration:</strong> {{ routine.duration_minutes }} minutes
+                </p>
+
+                <h6 class="mt-3">Exercises:</h6>
+                <ul class="small">
+                    {% for ex in routine.exercises.all %}
+                    <li>{{ ex.name }}{% if ex.repetitions %} – {{ ex.repetitions }}{% endif %}</li>
+                    {% empty %}
+                    <li>No exercises defined yet.</li>
+                    {% endfor %}
+                </ul>
+
+                <form method="post" action="{% url 'toggle-routine-enrollment' routine.id %}" class="mt-auto">
+                    {% csrf_token %}
+
+                    {% if routine.id in enrolled_ids %}
+                    <button type="submit" class="btn btn-outline-danger w-100">
+                        Remove from My Routines
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary w-100">
+                        Add to My Routines
+                    </button>
+                    {% endif %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No routines available yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

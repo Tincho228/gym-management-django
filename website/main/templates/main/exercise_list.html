@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Exercises</h2>
+    <a href="{% url 'add-exercise' %}" class="btn btn-primary mb-3">Add Exercise</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Exercise</th>
+                <th>Routine</th>
+                <th>Repetitions</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in exercises %}
+            <tr>
+                <td>{{ e.name }}</td>
+                <td>{{ e.routine.name }}</td>
+                <td>{{ e.repetitions|default:"N/A" }}</td>
+                <td>
+                    <a href="{% url 'edit-exercise' e.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete-exercise' e.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No exercises found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

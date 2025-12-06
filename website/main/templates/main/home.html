@@ -97,94 +97,32 @@
     <h2>Meet Our Instructors</h2>
 
     {% if instructors %}
-        <div class="instructors-list">
+        <div class="marquee-track" id="instructorMarquee">
             {% for instructor in instructors %}
-                <div class="instructor-item">
-                    <p class="instructor-name">{{ instructor.user.get_full_name|default:instructor.user.username }}</p>
+                <div class="instructor-card"> <!-- Instructor 1 -->
+
+                    <div class="profile-image-wrapper">
+                        {% with full_name=instructor.user.get_full_name|default:instructor.user.username %}
+                        <img src="https://placehold.co/400?text={{ full_name|urlencode }}%20T&font=roboto"
+                             alt="{{ full_name }} Avatar">
+                        {% endwith %}
+                    </div>
+
+                    <!-- <p class="instructor-name">{{ instructor.user.get_full_name }}</p> -->
                     <p class="instructor-specialty">{{ instructor.specialty }}</p>
+
                     {% if instructor.bio %}
                         <p class="instructor-bio">{{ instructor.bio }}</p>
                     {% endif %}
+
                 </div>
+                
             {% endfor %}
         </div>
     {% else %}
         <p>No instructors created yet.</p>
     {% endif %}
-    
-    <!-- Mock cards for frontend marquee effect -->
-    <div class="marquee-track" id="instructorMarquee">
-        <div class="instructor-card"> <!-- Instructor 1 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-ryan.jpg" alt="Profile of Ryan">
-            </div>
-            <p class="instructor-name">Ryan</p>
-        </div>
 
-        <div class="instructor-card"> <!-- Instructor 2 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-bruce.jpg" alt="Profile of Bruce">
-            </div>
-            <p class="instructor-name">Bruce</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 3 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-rebecca.jpg" alt="Profile of Rebecca">
-            </div>
-            <p class="instructor-name">Rebecca</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 4 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 5 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 6 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 7 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 8 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 9 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-        <div class="instructor-card"> <!-- Instructor 10 -->
-            <div class="profile-image-wrapper">
-                <img src="/static/main/images/instructor-danielle.jpg" alt="Profile of Danielle">
-            </div>
-            <p class="instructor-name">Danielle</p>
-        </div>
-
-    </div>
 
 </div>
 

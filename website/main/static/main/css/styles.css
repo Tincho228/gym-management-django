@@ -229,6 +229,13 @@ main{
     white-space: nowrap; /* Ensures all content stays on one line */
     padding: 20px 0;
 }
+.instructor-section h2 {
+    margin: 0 0 30px 0; /* Spacing below the title */
+    font-size: 1.5rem; /* Larger font size for city name */
+    font-weight: 600;
+    text-align: center;
+    font-family:"Roboto", sans-serif;
+}
 
 /* The track that will move */
 .marquee-track {
@@ -261,6 +268,7 @@ main{
 
 /* Individual instructor card styling */
 .instructor-card {
+    font-family:'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -271,6 +279,7 @@ main{
 
 /* Wrapper to create the circular shape and shadow */
 .profile-image-wrapper {
+   
     width: 150px; /* Diameter of the circle */
     height: 150px;
     border-radius: 50%; /* Makes the wrapper circular */
@@ -290,7 +299,6 @@ main{
 
 /* Styling for the name text */
 .instructor-name {
-    font-family: sans-serif; /* Use a clear font */
     font-size: 1.1em;
     font-weight: 600; /* Bold the name */
     color: #333; /* Dark text color */
@@ -302,11 +310,15 @@ main{
 /* Footer Section Styles */
 
 footer{
-    background-color: #B6C4A2;
+    background-color: #16697A;
     text-align: center;
     max-width: 100%;
     margin: 0;
+    padding: 10px;
+    color: #EDE7E3;
+    font-family:'Roboto', sans-serif;
 }
+
 #login{
     background-color: #93C0A4;
 }

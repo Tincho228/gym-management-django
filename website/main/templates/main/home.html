@@ -93,5 +93,37 @@
     </div>
 </div>
 </div>
+<div class="instructor-section">
+    <h2>Meet Our Instructors</h2>
+
+    {% if instructors %}
+        <div class="marquee-track" id="instructorMarquee">
+            {% for instructor in instructors %}
+                <div class="instructor-card"> <!-- Instructor 1 -->
+
+                    <div class="profile-image-wrapper">
+                        {% with full_name=instructor.user.get_full_name|default:instructor.user.username %}
+                        <img src="https://placehold.co/400?text={{ full_name|urlencode }}%20T&font=roboto"
+                             alt="{{ full_name }} Avatar">
+                        {% endwith %}
+                    </div>
+
+                    <!-- <p class="instructor-name">{{ instructor.user.get_full_name }}</p> -->
+                    <p class="instructor-specialty">{{ instructor.specialty }}</p>
+
+                    {% if instructor.bio %}
+                        <p class="instructor-bio">{{ instructor.bio }}</p>
+                    {% endif %}
+
+                </div>
+                
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No instructors created yet.</p>
+    {% endif %}
+
+
+</div>
 
 {% endblock %}

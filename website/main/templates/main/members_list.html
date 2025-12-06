@@ -1,0 +1,62 @@
+{% extends "main/base.html" %}
+
+{% block title %}Members & Memberships{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Users & Memberships</h1>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Plan</th>
+            <th>Start</th>
+            <th>Expiration</th>
+            <th>Days Left</th>
+            <th>Status</th>
+            <th>Edit Profile</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for membership in all_memberships %}
+        <tr>
+            <td>{{ membership.user.username }}</td>
+            <td>{{ membership.user.email }}</td>
+            <td>{{ membership.get_plan_type_display }}</td>
+            <td>{{ membership.start_date }}</td>
+            <td>{{ membership.expiration_date }}</td>
+            <td>{{ membership.days_remaining }}</td>
+
+            <td>
+                {% if membership.is_active %}
+                <span class="text-success fw-bold">Active</span>
+                {% else %}
+                <span class="text-danger fw-bold">Expired</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'edit-user-profile' membership.user.id %}" class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+            </td>
+
+            <td>
+                <form method="POST" action="{% url 'delete-user' membership.user.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="text-center">No members found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

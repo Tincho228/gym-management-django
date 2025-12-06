@@ -2,6 +2,9 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{# ======================================================
+TOP DASHBOARD BLOCK (TITLE + WEATHER)
+====================================================== #}
 {% block dashboard %}
 {% if role == "admin" %}
 <h1 class="dashboard-title">Welcome to your Admin Dashboard {{ request.user.first_name }}</h1>
@@ -10,139 +13,222 @@
 {% endif %}
 
 {% if daily_forecasts %}
-    <!-- Loop through forecast list and display each item -->
-    <div class="forecast-container">
-        <h3>Current Weather in {{city}}</h3>
-        {% for day in daily_forecasts %}
-        <div class="forecast-card">
-            <h3>{{ day.day_name }}</h3>
-            <p><strong>Time:</strong> {{ day.time_str }}</p>
+<div class="forecast-container">
+    <h3>Current Weather in {{ city }}</h3>
+    {% for day in daily_forecasts %}
+    <div class="forecast-card">
+        <h3>{{ day.day_name }}</h3>
+        <p><strong>Time:</strong> {{ day.time_str }}</p>
+        <p><strong>Temp:</strong> {{ day.temp|floatformat:1 }}°C</p>
 
-            <p><strong>Temp:</strong> {{ day.temp|floatformat:1 }}°C</p>
-            
-            <img src="https://openweathermap.org/img/wn/{{ day.icon_code }}@2x.png" alt="{{ day.description }}" width="50" height="50">
-            
-            <p>{{ day.description }}</p>
+        <img src="https://openweathermap.org/img/wn/{{ day.icon_code }}@2x.png" alt="{{ day.description }}" width="50"
+            height="50">
 
-            <p><strong>Wind:</strong> {{ day.wind_speed|floatformat:1 }} m/s</p>
-            
-        </div>
-        {% empty %}
-        <p>No forecast data available.</p>
-        {% endfor %}
+        <p>{{ day.description }}</p>
+        <p><strong>Wind:</strong> {{ day.wind_speed|floatformat:1 }} m/s</p>
     </div>
-<!-- If there is an error message, display it -->
-{% elif error_message %}
-    <p class="error">{{ error_message }}</p>
-{% else %}
-    <p>No weather data available.</p>
-{% endif %}
+    {% empty %}
+    <p>No forecast data available.</p>
+    {% endfor %}
+</div>
 
+{% elif error_message %}
+<p class="error">{{ error_message }}</p>
+{% else %}
+<p>No weather data available.</p>
+{% endif %}
 {% endblock %}
 
+
+{# ======================================================
+MAIN CONTENT
+====================================================== #}
 {% block content %}
-<!-- ADMIN DASHBOARD -->
+
+{# ===================== ADMIN DASHBOARD ===================== #}
 {% if role == "admin" %}
 <section class="admin-dashboard">
-    <div class="workout-plans">
-        <div class="routine-list">
-            <div class = "title-with-button"> 
-                <h3>Your Routines</h3>
-                <a href="/" class="add-button" id="add-routine">+Add new</a>
-            </div>
-            {% if routines %}
-                <ul>
-                    {% for routine in routines %}
-                        <li>
-                            <strong>{{ routine.name }}</strong><br>
-                            {{ routine.description }}<br>
-                            Duration: {{ routine.duration_minutes }} minutes
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No routines created yet.</p>
-            {% endif %}
-        </div>
-    </div>
-    <div class = "memberships">
-        <div class = "title-with-button"> 
-            <h3>Memberships offered</h3>
-            <a href="/" class="add-button" id="edit-memberships">Edit</a>
-        </div>
-        <ul>
-            {% for value, label in membership_types %}
-            <li>{{ label }} ({{ value }})</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class = "members">
-        <div class = "title-with-button"> 
+
+    {# ------- MEMBERS (USERS + MEMBERSHIPS) ------- #}
+    <div class="members">
+        <div class="title-with-button">
             <h3>Members</h3>
-            <a href="/" class="add-button" id="edit-memberships">Edit</a>
         </div>
+
         <table class="membership-table">
-    <thead>
-        <tr>
-            <th>Member</th>
-            <th>Plan</th>
-            <th>Start Date</th>
-            <th>Expiration Date</th>
-            <th>Days Remaining</th>
-            <th>Status</th>
-        </tr>
-    </thead>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Plan</th>
+                    <th>Start Date</th>
+                    <th>Expiration</th>
+                    <th>Days Left</th>
+                    <th>Status</th>
+                    <th>Edit Profile</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
 
-    <tbody>
-        {% for membership in all_memberships %}
-        <tr>
-            <td>{{ membership.user.username }}</td>
-            <td>{{ membership.get_plan_type_display }}</td>
-            <td>{{ membership.start_date }}</td>
-            <td>{{ membership.expiration_date }}</td>
-            <td>{{ membership.days_remaining }}</td>
+            <tbody>
+                {% for membership in all_memberships %}
+                <tr>
+                    <td>{{ membership.user.username }}</td>
+                    <td>{{ membership.user.email }}</td>
+                    <td>{{ membership.get_plan_type_display }}</td>
+                    <td>{{ membership.start_date }}</td>
+                    <td>{{ membership.expiration_date }}</td>
+                    <td>{{ membership.days_remaining }}</td>
 
-            <td>
-                {% if membership.is_active %}
-                    <span style="color: green; font-weight: bold;">Active</span>
-                {% else %}
-                    <span style="color: red; font-weight: bold;">Expired</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6" style="text-align:center;">No memberships found.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <td>
+                        {% if membership.is_active %}
+                        <span style="color: green; font-weight: bold;">Active</span>
+                        {% else %}
+                        <span style="color: red; font-weight: bold;">Expired</span>
+                        {% endif %}
+                    </td>
 
+                    <td>
+                        <a href="{% url 'edit-user-profile' membership.user.id %}" class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="{% url 'delete-user' membership.user.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Delete this user?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" style="text-align:center;">No memberships found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+    <hr class="my-4">
+
+    {# ------- ADMIN TOOLS CARDS ------- #}
+    <div class="crud-panel">
+        <h2>Admin Tools</h2>
+        <p class="text-muted">Manage users, memberships, instructors, routines, and exercises.</p>
+
+        <div class="row g-3 mt-2">
+
+            <!-- Users & Memberships -->
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Users & Memberships</h5>
+                        <p class="card-text flex-grow-1">
+                            View members, their plans, days left, and manage profiles.
+                        </p>
+                        <a href="{% url 'members-list' %}" class="btn btn-dark mt-auto">
+                            Go to Members
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructors -->
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Instructors</h5>
+                        <p class="card-text flex-grow-1">
+                            Edit or add new instructors displayed on the site.
+                        </p>
+                        <a href="{% url 'instructor-list' %}" class="btn btn-success mt-auto">
+                            Manage Instructors
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Routines -->
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Routines</h5>
+                        <p class="card-text flex-grow-1">
+                            Configure gym routines for clients.
+                        </p>
+                        <a href="{% url 'routine-list' %}" class="btn btn-primary mt-auto">
+                            Manage Routines
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercises -->
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Exercises</h5>
+                        <p class="card-text flex-grow-1">
+                            Maintain exercises inside each routine.
+                        </p>
+                        <a href="{% url 'exercise-list' %}" class="btn btn-danger mt-auto">
+                            Manage Exercises
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </section>
 {% endif %}
-<!-- CLIENT DASHBOARD -->
+
+
+{# ===================== CLIENT DASHBOARD ===================== #}
 {% if role == "client" %}
 <section class="client-dashboard">
-    <div class="workout-plans">
-        <div class="workout-plans">
-            <h3>Your Routines</h3>
-            {% if routines %}
+
+    <div class="title-with-button">
+        <h3>Your Routines</h3>
+        <a href="{% url 'client-routines' %}" class="btn btn-primary btn-sm">
+            Browse Routines
+        </a>
+    </div>
+
+    {% if routines %}
+    <div class="routine-list-grid">
+        {% for routine in routines %}
+        <div class="routine-card">
+            <h4>{{ routine.name }}</h4>
+            <p>{{ routine.description }}</p>
+
+            <p><strong>Duration:</strong> {{ routine.duration_minutes }} min</p>
+
+            {% if routine.instructor %}
+            <p><strong>Instructor:</strong> {{ routine.instructor.user.get_full_name }}</p>
+            {% endif %}
+
+            {% if routine.exercises.all %}
+            <p><strong>Exercises:</strong></p>
             <ul>
-                {% for routine in routines %}
-                    <li>
-                        <strong>{{ routine.name }}</strong><br>
-                        {{ routine.description }}<br>
-                        Duration: {{ routine.duration_minutes }} minutes
-                    </li>
+                {% for exercise in routine.exercises.all %}
+                <li>{{ exercise.name }}</li>
                 {% endfor %}
             </ul>
-            {% else %}
-                <p>No routines created yet.</p>
             {% endif %}
         </div>
+        {% endfor %}
     </div>
-    
+    {% else %}
+    <p>No routines selected yet. Click "Browse Routines" to add some.</p>
+    {% endif %}
+
 </section>
 {% endif %}
+
 {% endblock %}

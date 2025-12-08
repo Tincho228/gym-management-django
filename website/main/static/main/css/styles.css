@@ -369,3 +369,41 @@ footer{
     text-align: center;
     background-color: #DCE2BD;
 } */
+
+
+
+
+/* ROUTINE CARDS */
+.routine-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+.routine-card {
+    background: #f9f9f9;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
+    transition: 0.2s ease;
+}
+
+.routine-card:hover {
+    background: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.routine-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+}
+
+.routine-card p {
+    margin: 3px 0;
+    color: #444;
+    line-height: 1.3rem;
+}

@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Instructors</h2>
+    <a href="{% url 'add-instructor' %}" class="btn btn-primary mb-3">Add Instructor</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Specialty</th>
+                <th>Bio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inst in instructors %}
+            <tr>
+                <td>{{ inst.user.username }}</td>
+                <td>{{ inst.specialty }}</td>
+                <td>{{ inst.bio|truncatewords:15 }}</td>
+                <td>
+                    <a href="{% url 'edit-instructor' inst.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete-instructor' inst.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No instructors found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

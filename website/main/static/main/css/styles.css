@@ -225,8 +225,6 @@ main{
 /* Container for the entire section */
 .instructors-section {
     /* Required to create a visible window for the moving track */
-    overflow: hidden; 
-    white-space: nowrap; /* Ensures all content stays on one line */
     padding: 20px 0;
 }
 .instructor-section h2 {
@@ -237,33 +235,56 @@ main{
     font-family:"Roboto", sans-serif;
 }
 
-/* The track that will move */
-.marquee-track {
-    display: flex; /* Arranges cards side-by-side */
-    gap: 30px; /* Space between the cards */
-    padding: 10px 0; 
-    
-    /* Crucial CSS for Marquee: */
-    width: fit-content; /* Allows the track to be as wide as its content (original + duplicate) */
-    animation: scrolling-marquee 30s linear infinite; /* Apply the animation */
+/*Carousel wrapper to hide overflow */
+
+.carousel-wrapper {
+  --width: 100px;
+  --gap: 0;
+  --num-items: 10;
+  --ani-offset: calc(var(--width) * var(--num-items) * -1);
+  --ani-speed: 10s;
+  
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
-.marquee-track::-webkit-scrollbar {
-    display: none;
+.carousel-wrapper::before,
+.carousel-wrapper::after{
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+}
+.carousel-wrapper::before{
+  left: 0;
+  background-image: linear-gradient(to right,var(--bg-clr) 0%,transparent 50%);
+}
+.carousel-wrapper::after{
+  right: 0;
+  background-image: linear-gradient(to left,var(--bg-clr) 0%,transparent 50%);
 }
 
-/* Pause the animation on hover */
-.marquee-track:hover {
-    animation-play-state: paused;
+.carousel {
+  display: flex;
+  animation: slide var(--ani-speed) linear infinite;
+}
+.item{
+  flex: 1 0 var(--width);
+  padding:1rem;
 }
 
-@keyframes scrolling-marquee {
-    0% {
-        transform: translateX(0%); /* Start at the original position */
-    }
-    100% {
-        /* Move exactly the width of the original content block */
-        transform: translateX(-50%); 
-    }
+.item > img{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@keyframes slide {
+  100% {
+    transform: translateX(var(--ani-offset));
+  }
 }
 
 /* Individual instructor card styling */
@@ -304,8 +325,6 @@ main{
     color: #333; /* Dark text color */
     margin: 0;
 }
-
-
 
 /* Footer Section Styles */
 

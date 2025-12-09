@@ -13,12 +13,12 @@ TOP DASHBOARD BLOCK (TITLE + WEATHER)
 {% endif %}
 
 {% if daily_forecasts %}
-<div class="forecast-container">
+    <br>
     <h3>Current Weather in {{ city }}</h3>
+    <div class="forecast-container">
     {% for day in daily_forecasts %}
     <div class="forecast-card">
         <h3>{{ day.day_name }}</h3>
-        <p><strong>Time:</strong> {{ day.time_str }}</p>
         <p><strong>Temp:</strong> {{ day.temp|floatformat:1 }}°C</p>
 
         <img src="https://openweathermap.org/img/wn/{{ day.icon_code }}@2x.png" alt="{{ day.description }}" width="50"
@@ -195,7 +195,7 @@ MAIN CONTENT
 
     <div class="title-with-button">
         <h3>Your Routines</h3>
-        <a href="{% url 'client-routines' %}" class="btn btn-primary btn-sm">
+        <a href="{% url 'client-routines' %}" class="add-button">
             Browse Routines
         </a>
     </div>

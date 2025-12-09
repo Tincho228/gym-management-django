@@ -1,14 +1,27 @@
+:root {
+  --nav: #16697A; /* Azul vibrante */
+  --background-1: #489FB5; /* Gris oscuro */
+  --background-2: #82C0CC; /* Blanco muy claro */
+  --font-clear: #EDE7E3; /* Negro casi puro */
+  --font-dark: #212529;
+  --attention: #FFA62B;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 body{
     background-color: #FFFBE8;
     color:rgb(13, 13, 13);
-    
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 nav{
-    background-color: #16697A;
+    background-color: var(--nav);
     max-width: 100%;
     margin: 0;
     display: flex; 
-    /* justify-content: left;  */
+    justify-content: space-between; 
     align-items: center;
     padding: 0.7rem;
     
@@ -17,16 +30,36 @@ a{
     color: #EDE7E3;
     text-decoration: none;
     padding: 0.3rem;
+    font-family:'Roboto', sans-serif;
 }
 a:active{
     color:#EDE7E3;
 }
 a:hover{
-    color: #B6C4A2
+    color: var(--font-dark);
+    background-color: var(--attention);
+    text-decoration: none;
+    padding: 0.4rem;
 }
 nav a{
     font-family: "Roboto", sans-serif;
-    color: #EDE7E3;
+    font-weight: 400;
+    color:  var(--font-clear);
+    text-decoration: none;
+
+}
+
+p{
+    font-family: "Roboto", sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: "Oswald", sans-serif;
+}
+
+div{
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.7rem;
 }
 
 .login-link{
@@ -35,6 +68,8 @@ nav a{
 
 main{
     background-color: #D8DDEF;
+    margin: 1rem;
+    padding: 1rem;
 }
 
 /* Hero Section Styles */
@@ -332,42 +367,78 @@ footer{
     background-color: #16697A;
     text-align: center;
     max-width: 100%;
-    margin: 0;
+    margin-top: auto;
     padding: 10px;
     color: #EDE7E3;
     font-family:'Roboto', sans-serif;
 }
-
-#login{
-    background-color: #93C0A4;
-}
+/* Dashboard forecast Section Styles */
 
 #forecast-container{
+    display: grid;
+    grid-auto-flow: column;      /* lay out items horizontally */
+    grid-auto-columns: 180px;
+    gap: 0.5rem;
+    padding: 0.5rem;
     max-width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0.7rem;
+    justify-items: center; 
 }
 
 .forecast-card {
-    border: 1px solid #6d6d6d;
-    padding: 0.7em;
-    margin: 1em;
+    background-image: linear-gradient(to right, #99d2e0, #2d58ae); /* Transition to a deep, dark blue #103783 */
+    border-radius: 15px; /* Rounded corners for a modern look */
+    border: 1px solid var(--font-dark);
+    border-radius: 12px;
+    padding: 0.4rem;
     text-align: center;
-    background-color: #DCE2BD;
+    max-width: 100%; 
+
 }
 
+.forecast-card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.forecast-card p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: var(--font-dark);
+}
+.add-button{
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--font-dark);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #ffc107; 
+  border: 1px solid #ffc107; 
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  font-family: "Roboto", sans-serif;}
+
 .membership-table {
-    width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     padding: 0.3rem;
+    table-layout: fixed; /* Fixes column widths, allows wrapping */
+    word-wrap: break-word; /* Fallback for older browsers */
 }
 
-.membership-table th,
-.membership-table td {
+.membership-table th, .membership-table td{
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 0.3rem;
+    background-color: #f4f4f4;
+    text-align: left;
+    font-weight: bold;
+    vertical-align: top;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .membership-table th {
@@ -378,18 +449,8 @@ footer{
 
 .membership-table tr:nth-child(even) {
     background-color: #fafafa;
+    max-width: 200px;
 }
-/* #home-weather-widget{
-    border: 1px solid #6d6d6d;
-    padding: 0.7rem;
-    margin: 0 auto;
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-    background-color: #DCE2BD;
-} */
-
-
 
 
 /* ROUTINE CARDS */
@@ -425,4 +486,23 @@ footer{
     margin: 3px 0;
     color: #444;
     line-height: 1.3rem;
+}
+
+/* Make cards stack vertically on very small screens */
+@media (max-width: 500px) {
+    p{
+        font-size: 11px;
+    }
+    .forecast-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .forecast-card {
+        width: 80%; /* Take most of the screen width */
+    }
+    .membership-table th,
+    .membership-table td {
+        font-size: 0.85rem;
+        padding: 6px 8px;
+    }
 }

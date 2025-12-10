@@ -129,13 +129,12 @@ def dashboard(request):
     for entry in forecast_list:
         dt_object = datetime.strptime(entry['dt_txt'], '%Y-%m-%d %H:%M:%S')
         date_key = dt_object.date()
-        if date_key not in daily_forecasts and len(daily_forecasts) < 5:
+        if date_key not in daily_forecasts and len(daily_forecasts) < 3:
             daily_forecasts[date_key] = {
                 'temp': entry['main']['temp'],
                 'description': entry['weather'][0]['description'].capitalize(),
                 'wind_speed': entry['wind']['speed'],
                 'icon_code': entry['weather'][0]['icon'],
-                'time_str': dt_object.strftime('%H:%M'),
                 'day_name': dt_object.strftime('%A'),
             }
 
